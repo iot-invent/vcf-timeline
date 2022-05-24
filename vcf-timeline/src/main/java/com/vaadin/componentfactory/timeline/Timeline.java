@@ -23,14 +23,17 @@ package com.vaadin.componentfactory.timeline;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import com.vaadin.componentfactory.timeline.event.ItemDoubleClickEvent;
 import com.vaadin.componentfactory.timeline.event.ItemRemoveEvent;
 import com.vaadin.componentfactory.timeline.event.ItemResizeEvent;
 import com.vaadin.componentfactory.timeline.event.ItemsDragAndDropEvent;
+import com.vaadin.componentfactory.timeline.event.ItemsSelectedEvent;
 import com.vaadin.componentfactory.timeline.model.AxisOrientation;
 import com.vaadin.componentfactory.timeline.model.Item;
 import com.vaadin.componentfactory.timeline.model.SnapStep;
@@ -44,14 +47,15 @@ import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.dependency.NpmPackage;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.internal.Pair;
+import com.vaadin.flow.shared.Registration;
 
 /**
  * Timeline component definition. Timeline uses vis-timeline component to display data in time (see more at
  * https://github.com/visjs/vis-timeline).
  */
 @SuppressWarnings("serial")
-@NpmPackage(value = "vis-timeline", version = "7.4.9")
-@NpmPackage(value = "moment", version = "2.29.1")
+@NpmPackage(value = "vis-timeline", version = "7.5.1")
+@NpmPackage(value = "moment", version = "2.29.3")
 @JsModule("./src/arrow.js")
 @JsModule("./src/vcf-timeline.js")
 @CssImport("vis-timeline/styles/vis-timeline-graph2d.min.css")
@@ -527,8 +531,8 @@ public class Timeline extends Div {
 	 * @param listener
 	 *            the listener to be added
 	 */
-	public void addItemResizeListener(final ComponentEventListener<ItemResizeEvent> listener) {
-		addListener(ItemResizeEvent.class, listener);
+	public Registration addItemResizeListener(final ComponentEventListener<ItemResizeEvent> listener) {
+		return addListener(ItemResizeEvent.class, listener);
 	}
 
 	/**
@@ -573,8 +577,8 @@ public class Timeline extends Div {
 	 * @param listener
 	 *            the listener to be added.
 	 */
-	public void addItemRemoveListener(final ComponentEventListener<ItemRemoveEvent> listener) {
-		addListener(ItemRemoveEvent.class, listener);
+	public Registration addItemRemoveListener(final ComponentEventListener<ItemRemoveEvent> listener) {
+		return addListener(ItemRemoveEvent.class, listener);
 	}
 
 	/**
@@ -587,6 +591,36 @@ public class Timeline extends Div {
 	public void onSelect(final String selectedItemsIds) {
 		selectedItemsIdsList.clear();
 		selectedItemsIdsList.addAll(Arrays.asList(selectedItemsIds.split(",")));
+		fireItemsSelectedEvent(new ArrayList<>(selectedItemsIdsList), true);
+	}
+
+	public void fireItemsSelectedEvent(final Collection<String> selected, final boolean fromClient) {
+		final ItemsSelectedEvent event = new ItemsSelectedEvent(this, selected, fromClient);
+		fireEvent(event);
+	}
+
+	public Registration addItemsSelectedListener(final ComponentEventListener<ItemsSelectedEvent> listener) {
+		return addListener(ItemsSelectedEvent.class, listener);
+	}
+
+	/**
+	 * Call from client when items are selected.
+	 *
+	 * @param selectedItemsIds
+	 *            list of selected items
+	 */
+	@ClientCallable
+	public void onDoubleClick(final String itemId) {
+		fireItemDoubleClickEvent(itemId, true);
+	}
+
+	public void fireItemDoubleClickEvent(final String itemId, final boolean fromClient) {
+		final ItemDoubleClickEvent event = new ItemDoubleClickEvent(this, itemId, fromClient);
+		fireEvent(event);
+	}
+
+	public Registration addItemDoubleClickListener(final ComponentEventListener<ItemDoubleClickEvent> listener) {
+		return addListener(ItemDoubleClickEvent.class, listener);
 	}
 
 	/**
@@ -595,8 +629,8 @@ public class Timeline extends Div {
 	 * @param listener
 	 *            the listener to be added
 	 */
-	public void addItemsDragAndDropListener(final ComponentEventListener<ItemsDragAndDropEvent> listener) {
-		addListener(ItemsDragAndDropEvent.class, listener);
+	public Registration addItemsDragAndDropListener(final ComponentEventListener<ItemsDragAndDropEvent> listener) {
+		return addListener(ItemsDragAndDropEvent.class, listener);
 	}
 
 	/**
