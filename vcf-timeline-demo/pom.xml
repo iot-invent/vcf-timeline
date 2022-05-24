@@ -172,7 +172,18 @@
             </plugin>
         </plugins>
     </build>
-
+<distributionManagement>
+		<repository>
+			<id>internal</id>
+			<name>Release Repository</name>
+			<url>${repo.releases}</url>
+		</repository>
+		<snapshotRepository>
+			<id>nexus</id>
+			<name>Snapshot</name>
+			<url>${repo.snapshots}</url>
+		</snapshotRepository>
+	</distributionManagement>
     <profiles>
 
         <profile>
