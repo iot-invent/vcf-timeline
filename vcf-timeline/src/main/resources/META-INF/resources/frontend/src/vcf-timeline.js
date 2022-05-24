@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-import Arrow from './arrow.js';
+import Arrow from './no_arrow.js';
 import moment from 'moment';
 
 window.vis = require("vis-timeline/standalone/umd/vis-timeline-graph2d.min.js")
@@ -51,6 +51,10 @@ window.vcftimeline = {
 
 	  container.timeline._timeline.on('select', (properties) => {
 		container.$server.onSelect(properties.items);
+	  });
+
+	  container.timeline._timeline.on('doubleClick', (properties) => {
+		container.$server.onDoubleClick(properties.item);
 	  });
 
 	  var mouseX;
