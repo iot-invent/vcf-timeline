@@ -252,13 +252,13 @@ window.vcftimeline = {
 
   	addItem: function(container, newItemJson) {
 		container.timeline._timeline.itemsData.add(JSON.parse(newItemJson));
-		container.timeline._timeline.fit();
+		//container.timeline._timeline.fit();
 	},
 
 	setItems: function(container, itemsJson) {
 		var items = new vis.DataSet(JSON.parse(itemsJson));
 		container.timeline._timeline.setItems(items);
-		container.timeline._timeline.fit();
+//		container.timeline._timeline.fit();
 	},
 	
 	revertMove: function(container, itemId, itemJson) {
