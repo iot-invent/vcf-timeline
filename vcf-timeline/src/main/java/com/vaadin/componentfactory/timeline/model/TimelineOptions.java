@@ -38,10 +38,10 @@ import elemental.json.JsonObject;
 public class TimelineOptions {
 
 	/* Minimum Date for the visible range. */
-	public LocalDateTime min;
+	public Object min;
 
 	/* Maximum Date for the visible range (excluded). */
-	public LocalDateTime max;
+	public Object max;
 
 	/* Orientation of the timeline axis. */
 	public String axisOrientation = AxisOrientation.TOP.getName();
