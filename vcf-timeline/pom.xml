@@ -14,11 +14,11 @@
 
 	<inceptionYear>2021</inceptionYear>
 	<organization>
-		<name>Vaadin Ltd</name>
-		<url>https://vaadin.com/</url>
+		<name>IoT Invent GmbH</name>
 	</organization>
 
 	<properties>
+		<project.scm.id>github</project.scm.id>
 		<vaadin.version>14.6.8</vaadin.version>
 		<lombok.version>1.18.24</lombok.version>
 		<maven.compiler.source>1.8</maven.compiler.source>
@@ -189,7 +189,7 @@
 	</build>
 	<distributionManagement>
 		<repository>
-			<id>internal</id>
+			<id>nexus</id>
 			<name>Release Repository</name>
 			<url>${repo.releases}</url>
 		</repository>
@@ -252,6 +252,7 @@
 						</executions>
 						<configuration>
 							<quiet>true</quiet>
+							<doclint>none</doclint>
 							<additionalparam>-Xdoclint:none</additionalparam>
 						</configuration>
 					</plugin>
