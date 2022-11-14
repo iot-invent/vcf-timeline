@@ -7,12 +7,13 @@
     <packaging>pom</packaging>
     <modules>
         <module>vcf-timeline</module>
-        <module>vcf-timeline-demo</module>
+       <!-- <module>vcf-timeline-demo</module> -->
     </modules>
     <name>timeline</name>
     <description>timeline component based on vis-timeline library</description>
 
     <properties>
+		<project.scm.id>github</project.scm.id>
         <vaadin.version>14.6.8</vaadin.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -20,10 +21,9 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
     <inceptionYear>2021</inceptionYear>
-    <organization>
-        <name>Vaadin Ltd</name>
-        <url>https://vaadin.com/</url>
-    </organization>
+	<organization>
+		<name>IoT Invent GmbH</name>
+	</organization>
 
     <dependencyManagement>
         <dependencies>
@@ -72,7 +72,7 @@
     </pluginRepositories>
 	<distributionManagement>
 		<repository>
-			<id>internal</id>
+			<id>nexus</id>
 			<name>Release Repository</name>
 			<url>${repo.releases}</url>
 		</repository>
