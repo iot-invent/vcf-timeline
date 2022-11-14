@@ -24,6 +24,11 @@
 	<organization>
 		<name>IoT Invent GmbH</name>
 	</organization>
+	<scm>
+		<connection>scm:git:https://github.com/iot-invent/vcf-timeline.git</connection>
+		<url>https://github.com/iot-invent/vcf-timeline</url>
+		<developerConnection>scm:git:https://github.com/iot-invent/vcf-timeline.git</developerConnection>
+	</scm>
 
     <dependencyManagement>
         <dependencies>
