@@ -126,8 +126,8 @@
 						<include>**/main/**/*.java</include>
 						<include>**/main/**/*.js</include>
 					</includes>
-					<failOnMissingHeader>true</failOnMissingHeader>
-					<failOnNotUptodateHeader>true</failOnNotUptodateHeader>
+					<failOnMissingHeader>false</failOnMissingHeader>
+					<failOnNotUptodateHeader>false</failOnNotUptodateHeader>
 				</configuration>
 				<executions>
 					<execution>
@@ -145,6 +145,8 @@
 				<configuration>
 					<source>8</source>
 					<failOnError>false</failOnError>
+					<doclint>none</doclint>
+					<additionalparam>-Xdoclint:none</additionalparam>
 				</configuration>
 				<executions>
 					<execution>
