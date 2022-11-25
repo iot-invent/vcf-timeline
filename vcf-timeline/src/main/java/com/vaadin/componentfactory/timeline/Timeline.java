@@ -181,6 +181,11 @@ public class Timeline extends Div {
 		updateTimelineOptions();
 	}
 
+	public void setRolling(final boolean rolling) {
+		getTimelineOptions().rolling = rolling;
+		updateTimelineOptions();
+	}
+
 	/**
 	 * Sets wheter the timeline can be moved by dragging the window. By default, timeline is moveable.
 	 *

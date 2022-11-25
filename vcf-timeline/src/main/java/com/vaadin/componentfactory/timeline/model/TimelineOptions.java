@@ -55,6 +55,8 @@ public class TimelineOptions {
 	/* Specifies whether the Timeline can be moved and zoomed by dragging the window. */
 	public boolean moveable = true;
 
+	public boolean rolling = true;
+
 	/*
 	 * When true, the items in the timeline can be manipulated. Only applicable when option selectable is true.
 	 */
@@ -132,6 +134,12 @@ public class TimelineOptions {
 
 		js.put("zoomMin", zoomMin);
 		js.put("zoomMax", zoomMax);
+		if (rolling) {
+			final JsonObject rollingMode = Json.createObject();
+			rollingMode.put("follow", rolling);
+			rollingMode.put("offset", 0.5);
+			js.put("rollingMode", rollingMode);
+		}
 		js.put("moveable", moveable);
 		js.put("zoomable", zoomable);
 		js.put("selectable", selectable);
