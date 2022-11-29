@@ -125,6 +125,54 @@ public class Timeline extends Div {
 		}
 	}
 
+	public void move(final double percentage) {
+		if (getElement().getNode().isAttached()) {
+			getElement().executeJs("vcftimeline.move($0, $1)", this, percentage);
+		}
+	}
+
+	public void moveToStart() {
+		if (getElement().getNode().isAttached()) {
+			getElement().executeJs("vcftimeline.moveToStart($0)", this);
+		}
+	}
+
+	public void moveToEnd() {
+		if (getElement().getNode().isAttached()) {
+			getElement().executeJs("vcftimeline.moveToEnd($0)", this);
+		}
+	}
+
+	public void zoomIn(final double zoom, final boolean rolling) {
+		if (getElement().getNode().isAttached()) {
+			getElement().executeJs("vcftimeline.zoomIn($0, $1, $2)", this, zoom, rolling);
+		}
+	}
+
+	public void zoomOut(final double zoom, final boolean rolling) {
+		if (getElement().getNode().isAttached()) {
+			getElement().executeJs("vcftimeline.zoomOut($0, $1, $2)", this, zoom, rolling);
+		}
+	}
+
+	public void toggleRollingMode() {
+		if (getElement().getNode().isAttached()) {
+			getElement().executeJs("vcftimeline.toggleRollingMode($0)", this);
+		}
+	}
+
+	public void startRolling() {
+		if (getElement().getNode().isAttached()) {
+			getElement().executeJs("vcftimeline.startRolling($0)", this);
+		}
+	}
+
+	public void stopRolling() {
+		if (getElement().getNode().isAttached()) {
+			getElement().executeJs("vcftimeline.stopRolling($0)", this);
+		}
+	}
+
 	/**
 	 * Return the list of items that are currently part of the timeline.
 	 *

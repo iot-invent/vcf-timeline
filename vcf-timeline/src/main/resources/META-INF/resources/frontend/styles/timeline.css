@@ -43,3 +43,7 @@
 .timeline .vis-item .vis-onUpdateTime-tooltip{
 	width: auto;
 }
+
+.timeline .vis-rolling-mode-btn {
+	display: none;
+}

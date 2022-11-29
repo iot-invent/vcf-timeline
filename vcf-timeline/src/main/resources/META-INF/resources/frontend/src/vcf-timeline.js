@@ -152,6 +152,111 @@ window.vcftimeline = {
 	  }, 100);
   	},
 
+	move (container, percentage) {
+		if (container.timeline._timeline.range.rolling) {
+			container.timeline._timeline.range.stopRolling();
+		}
+        var range = container.timeline._timeline.getWindow();
+        var interval = range.end - range.start;
+        var options = {
+	        animation: true,
+	        byUser: true,
+	        event: null
+	    };
+
+        container.timeline._timeline.setWindow({
+            start: range.start.valueOf() - interval * percentage,
+            end:   range.end.valueOf()   - interval * percentage,
+            options
+        });
+    },
+    
+    moveToStart (container) {
+		if (container.timeline._timeline.range.rolling) {
+			container.timeline._timeline.range.stopRolling();
+		}
+        var range = container.timeline._timeline.getWindow();
+        var interval = range.end - range.start;
+		var options = {
+	        animation: true,
+	        byUser: true,
+	        event: null
+	    };
+	    
+        container.timeline._timeline.setWindow({
+            start: container.timeline._timeline.options.start.valueOf(),
+            end:   container.timeline._timeline.options.start.valueOf() + interval,
+            options
+        });
+    },
+    
+    moveToEnd (container) {
+		if (container.timeline._timeline.range.rolling) {
+			container.timeline._timeline.range.stopRolling();
+		}
+        var range = container.timeline._timeline.getWindow();
+        var interval = range.end - range.start;
+		var options = {
+	        animation: true,
+	        byUser: true,
+	        event: null
+	    };
+	    
+        container.timeline._timeline.setWindow({
+            start: container.timeline._timeline.options.end.valueOf() - interval,
+            end:   container.timeline._timeline.options.end.valueOf(),
+            options
+        });
+    },
+    
+    zoomIn (container, zoom, rolling) {
+		if (rolling) {
+			container.timeline._timeline.range.stopRolling();
+		}
+		var options = {
+	        animation: true,
+	    };
+	    
+        container.timeline._timeline.zoomIn(zoom, 
+        	options, 
+        	function () {
+				if (rolling) {
+					container.timeline._timeline.range.startRolling();
+				}
+			});
+        
+    },
+    
+    zoomOut (container, zoom, rolling) {
+		if (rolling) {
+			container.timeline._timeline.range.stopRolling();
+		}
+		var options = {
+	        animation: true,
+	    };
+        container.timeline._timeline.zoomOut(zoom, 
+        	options, 
+        	function () {
+				if (rolling) {
+					container.timeline._timeline.range.startRolling();
+				}
+			});
+    },
+    
+    stopRolling (container) {
+		if (container.timeline._timeline.range.rolling) {
+			container.timeline._timeline.range.stopRolling();
+		}
+	},
+	
+	startRolling (container) {
+		container.timeline._timeline.range.startRolling();
+	},
+    
+    toggleRollingMode (container) {
+        container.timeline._timeline.toggleRollingMode();
+    },
+	
 	_moveWindowToRight(container, range, widthInMilliseconds) {
 		container.timeline._timeline.setWindow(
 			new Date(range.start.valueOf() - (widthInMilliseconds / 50)),
