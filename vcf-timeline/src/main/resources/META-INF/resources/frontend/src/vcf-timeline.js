@@ -209,6 +209,19 @@ window.vcftimeline = {
         });
     },
     
+    focus (container, id) {
+		
+		container.timeline._timeline.range.stopRolling();
+	
+		var options = {
+	        animation: true,
+	        zoom: true,
+	    };
+	    
+        container.timeline._timeline.focus(id, options);
+        
+    },
+	
     zoomIn (container, zoom, rolling) {
 		if (rolling) {
 			container.timeline._timeline.range.stopRolling();

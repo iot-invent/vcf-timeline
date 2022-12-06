@@ -57,6 +57,8 @@ public class TimelineOptions {
 
 	public boolean rolling = true;
 
+	public double rollingOffset = 0.5d;
+
 	/*
 	 * When true, the items in the timeline can be manipulated. Only applicable when option selectable is true.
 	 */
@@ -137,7 +139,7 @@ public class TimelineOptions {
 		if (rolling) {
 			final JsonObject rollingMode = Json.createObject();
 			rollingMode.put("follow", rolling);
-			rollingMode.put("offset", 0.5);
+			rollingMode.put("offset", rollingOffset);
 			js.put("rollingMode", rollingMode);
 		}
 		js.put("moveable", moveable);

@@ -125,6 +125,12 @@ public class Timeline extends Div {
 		}
 	}
 
+	public void focus(final String id) {
+		if (getElement().getNode().isAttached()) {
+			getElement().executeJs("vcftimeline.focus($0, $1)", this, id);
+		}
+	}
+
 	public void move(final double percentage) {
 		if (getElement().getNode().isAttached()) {
 			getElement().executeJs("vcftimeline.move($0, $1)", this, percentage);
@@ -227,6 +233,11 @@ public class Timeline extends Div {
 	public void setZoomable(final boolean zoomable) {
 		getTimelineOptions().zoomable = zoomable;
 		updateTimelineOptions();
+	}
+
+	public void setRolling(final boolean rolling, final double rollingOffset) {
+		getTimelineOptions().rollingOffset = rollingOffset;
+		setRolling(rolling);
 	}
 
 	public void setRolling(final boolean rolling) {
