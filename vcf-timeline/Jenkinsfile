@@ -35,16 +35,20 @@ pipeline {
         }
         stage('Build') {
             steps {
-				withMaven(maven: 'M3', mavenSettingsConfig: 'iot_maven') {
-					sh "mvn ${params.MVN_PARAMS} -B -DskipTests clean package"
-    			} 
+				nodejs(nodeJSInstallationName: 'nodeJs') {
+					withMaven(maven: 'M3', mavenSettingsConfig: 'iot_maven') {
+						sh "mvn ${params.MVN_PARAMS} -B -DskipTests clean package"
+    				} 
+				}
 			}
         }
         stage('Test') {
             steps {
-				withMaven(maven: 'M3', mavenSettingsConfig: 'iot_maven') {
-					sh "mvn ${params.MVN_PARAMS} test"
-    			} 
+				nodejs(nodeJSInstallationName: 'nodeJs') {
+					withMaven(maven: 'M3', mavenSettingsConfig: 'iot_maven') {
+						sh "mvn ${params.MVN_PARAMS} test"
+    				} 
+				}
 			}
 		//	post {
         //        always {
@@ -54,24 +58,27 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-				withMaven(maven: 'M3', mavenSettingsConfig: 'iot_maven') {
-					sh "mvn ${params.MVN_PARAMS} deploy"
-    			} 
-			}
+				nodejs(nodeJSInstallationName: 'nodeJs') {
+					withMaven(maven: 'M3', mavenSettingsConfig: 'iot_maven') {
+						sh "mvn ${params.MVN_PARAMS} deploy"
+    				} 
+				}
+        	}
         }
         stage("Release") {
             when {
                 expression { params.RELEASE }
             }
             steps {
-	               	withMaven(maven: 'M3', 
-	               			  mavenSettingsConfig: 'iot_maven') {
+				nodejs(nodeJSInstallationName: 'nodeJs') {
+	               	withMaven(maven: 'M3', mavenSettingsConfig: 'iot_maven') {
 						sh """
         				git config --global user.email support@iot-invent.com
         				git config --global user.name iot-invent-bot
         				"""
 						sh "mvn ${params.MVN_PARAMS} -B -Dresume=false release:prepare release:perform"
 	   				}
+				}
             }
         }
 
