@@ -4,7 +4,7 @@
 
 	<groupId>io.rtlscloud.vaadin</groupId>
 	<artifactId>vcf-timeline</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<packaging>jar</packaging>
 
 	<name>Timeline for Flow</name>
