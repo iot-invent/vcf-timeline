@@ -47,6 +47,50 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+    <build>
+    	<plugins>
+    	<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>3.3.0</version>
+				<inherited>true</inherited>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<archive>
+						<addMavenDescriptor>false</addMavenDescriptor>
+					</archive>
+					<includePom>false</includePom>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<version>3.3.0</version>
+				<configuration>
+					<rules>
+						<reactorModuleConvergence>
+							<message>The reactor is not valid</message>
+						</reactorModuleConvergence>
+						<requireReleaseDeps>
+							<message>No Snapshots Allowed!</message>
+						</requireReleaseDeps>
+						<requireReleaseVersion>
+							<message>No Snapshots Allowed!</message>
+						</requireReleaseVersion>
+					</rules>
+					<fail>true</fail>
+				</configuration>
+			</plugin>
+    	</plugins>
+    </build>
     <repositories>
         <repository>
             <id>Vaadin Directory</id>

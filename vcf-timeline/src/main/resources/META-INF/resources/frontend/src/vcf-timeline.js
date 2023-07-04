@@ -485,5 +485,3 @@ window.vcftimeline = {
 	}
 }
 
-
-
