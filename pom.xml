@@ -1,29 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.vaadin.addons.componentfactory</groupId>
+    <groupId>io.rtlscloud.vaadin</groupId>
     <artifactId>vcf-timeline-root</artifactId>
-    <version>1.0.3-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
         <module>vcf-timeline</module>
-        <module>vcf-timeline-demo</module>
+       <!-- <module>vcf-timeline-demo</module> -->
     </modules>
     <name>timeline</name>
     <description>timeline component based on vis-timeline library</description>
 
     <properties>
-        <vaadin.version>14.6.8</vaadin.version>
+		<project.scm.id>github</project.scm.id>
+        <vaadin.version>14.10.2</vaadin.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
     <inceptionYear>2021</inceptionYear>
-    <organization>
-        <name>Vaadin Ltd</name>
-        <url>https://vaadin.com/</url>
-    </organization>
+	<organization>
+		<name>IoT Invent GmbH</name>
+	</organization>
+	<scm>
+		<connection>scm:git:https://github.com/iot-invent/vcf-timeline.git</connection>
+		<url>https://github.com/iot-invent/vcf-timeline</url>
+		<developerConnection>scm:git:https://github.com/iot-invent/vcf-timeline.git</developerConnection>
+	  <tag>HEAD</tag>
+  </scm>
 
     <dependencyManagement>
         <dependencies>
@@ -114,4 +120,16 @@
             <releases><enabled>false</enabled></releases>
         </pluginRepository>
     </pluginRepositories>
+	<distributionManagement>
+		<repository>
+			<id>nexus</id>
+			<name>Release Repository</name>
+			<url>${repo.releases}</url>
+		</repository>
+		<snapshotRepository>
+			<id>nexus</id>
+			<name>Snapshot</name>
+			<url>${repo.snapshots}</url>
+		</snapshotRepository>
+	</distributionManagement>
 </project>

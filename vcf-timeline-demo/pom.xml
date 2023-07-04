@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.vaadin.addons.componentfactory</groupId>
+    <groupId>io.rtlscloud.vaadin</groupId>
     <artifactId>vcf-timeline-demo</artifactId>
     <version>1.0.3-SNAPSHOT</version>
 
@@ -172,7 +172,18 @@
             </plugin>
         </plugins>
     </build>
-
+<distributionManagement>
+		<repository>
+			<id>internal</id>
+			<name>Release Repository</name>
+			<url>${repo.releases}</url>
+		</repository>
+		<snapshotRepository>
+			<id>nexus</id>
+			<name>Snapshot</name>
+			<url>${repo.snapshots}</url>
+		</snapshotRepository>
+	</distributionManagement>
     <profiles>
 
         <profile>

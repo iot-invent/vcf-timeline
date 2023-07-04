@@ -1,9 +1,33 @@
 .timeline .vis-item {
     z-index: 2;
+    border-color: var(--timeline-item-border-color);
+    background-color: var(--timeline-item-background-color);
 }
 
 .timeline .vis-item.vis-selected {
     z-index: 3;
+   	border-color: var(--timeline-item-selected-border-color);
+    background-color: var(--timeline-item-selected-background-color);
+}
+
+.timeline .vis-item.warning {
+    border-color: var(--warning-color);
+    background-color: var(--warning-color);
+}
+
+.timeline .vis-item.error {
+    border-color: var(--error-color);
+    background-color: var(--error-color);
+}
+
+.timeline .vis-item.vis-selected.warning {
+    border-color: var(--timeline-item-selected-border-color);
+    background-color: var(--warning-color);
+}
+
+.timeline .vis-item.vis-selected.error {
+    border-color: var(--timeline-item-selected-border-color);
+    background-color: var(--error-color);
 }
 
 .timeline .vis-timeline {
@@ -18,4 +42,8 @@
 
 .timeline .vis-item .vis-onUpdateTime-tooltip{
 	width: auto;
+}
+
+.timeline .vis-rolling-mode-btn {
+	display: none;
 }

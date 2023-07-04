@@ -17,10 +17,10 @@
  * limitations under the License.
  * #L%
  */
-import Arrow from './arrow.js';
+import Arrow from './no_arrow.js';
 import moment from 'moment';
 
-import { DataSet, Timeline } from 'vis-timeline/standalone/umd/vis-timeline-graph2d.min.js';
+window.vis = require("vis-timeline/standalone/umd/vis-timeline-graph2d.min.js")
 
 window.vcftimeline = {
 
@@ -33,13 +33,13 @@ window.vcftimeline = {
 	  var parsedItems = JSON.parse(itemsJson);
 
 	  // Create a DataSet
-	  var items = new DataSet(parsedItems);	
+	  var items = new vis.DataSet(parsedItems);	
 		 
 	  // Get options for timeline configuration	
 	  var options = this._processOptions(container, optionsJson);
 
 	  // Create Timeline	
-	  var timeline = new Timeline(container, items, options);
+	  var timeline = new vis.Timeline(container, items, options);
       		
       const line_timeline = new Arrow(timeline);
 	  container.timeline = line_timeline;
@@ -51,6 +51,10 @@ window.vcftimeline = {
 
 	  container.timeline._timeline.on('select', (properties) => {
 		container.$server.onSelect(properties.items);
+	  });
+
+	  container.timeline._timeline.on('doubleClick', (properties) => {
+		container.$server.onDoubleClick(properties.item);
 	  });
 
 	  var mouseX;
@@ -148,6 +152,124 @@ window.vcftimeline = {
 	  }, 100);
   	},
 
+	move (container, percentage) {
+		if (container.timeline._timeline.range.rolling) {
+			container.timeline._timeline.range.stopRolling();
+		}
+        var range = container.timeline._timeline.getWindow();
+        var interval = range.end - range.start;
+        var options = {
+	        animation: true,
+	        byUser: true,
+	        event: null
+	    };
+
+        container.timeline._timeline.setWindow({
+            start: range.start.valueOf() - interval * percentage,
+            end:   range.end.valueOf()   - interval * percentage,
+            options
+        });
+    },
+    
+    moveToStart (container) {
+		if (container.timeline._timeline.range.rolling) {
+			container.timeline._timeline.range.stopRolling();
+		}
+        var range = container.timeline._timeline.getWindow();
+        var interval = range.end - range.start;
+		var options = {
+	        animation: true,
+	        byUser: true,
+	        event: null
+	    };
+	    
+        container.timeline._timeline.setWindow({
+            start: container.timeline._timeline.options.start.valueOf(),
+            end:   container.timeline._timeline.options.start.valueOf() + interval,
+            options
+        });
+    },
+    
+    moveToEnd (container) {
+		if (container.timeline._timeline.range.rolling) {
+			container.timeline._timeline.range.stopRolling();
+		}
+        var range = container.timeline._timeline.getWindow();
+        var interval = range.end - range.start;
+		var options = {
+	        animation: true,
+	        byUser: true,
+	        event: null
+	    };
+	    
+        container.timeline._timeline.setWindow({
+            start: container.timeline._timeline.options.end.valueOf() - interval,
+            end:   container.timeline._timeline.options.end.valueOf(),
+            options
+        });
+    },
+    
+    focus (container, id) {
+		
+		container.timeline._timeline.range.stopRolling();
+	
+		var options = {
+	        animation: true,
+	        zoom: true,
+	    };
+	    
+        container.timeline._timeline.focus(id, options);
+        
+    },
+	
+    zoomIn (container, zoom, rolling) {
+		if (rolling) {
+			container.timeline._timeline.range.stopRolling();
+		}
+		var options = {
+	        animation: true,
+	    };
+	    
+        container.timeline._timeline.zoomIn(zoom, 
+        	options, 
+        	function () {
+				if (rolling) {
+					container.timeline._timeline.range.startRolling();
+				}
+			});
+        
+    },
+    
+    zoomOut (container, zoom, rolling) {
+		if (rolling) {
+			container.timeline._timeline.range.stopRolling();
+		}
+		var options = {
+	        animation: true,
+	    };
+        container.timeline._timeline.zoomOut(zoom, 
+        	options, 
+        	function () {
+				if (rolling) {
+					container.timeline._timeline.range.startRolling();
+				}
+			});
+    },
+    
+    stopRolling (container) {
+		if (container.timeline._timeline.range.rolling) {
+			container.timeline._timeline.range.stopRolling();
+		}
+	},
+	
+	startRolling (container) {
+		container.timeline._timeline.range.startRolling();
+	},
+    
+    toggleRollingMode (container) {
+        container.timeline._timeline.toggleRollingMode();
+    },
+	
 	_moveWindowToRight(container, range, widthInMilliseconds) {
 		container.timeline._timeline.setWindow(
 			new Date(range.start.valueOf() - (widthInMilliseconds / 50)),
@@ -252,13 +374,13 @@ window.vcftimeline = {
 
   	addItem: function(container, newItemJson) {
 		container.timeline._timeline.itemsData.add(JSON.parse(newItemJson));
-		container.timeline._timeline.fit();
+		//container.timeline._timeline.fit();
 	},
 
 	setItems: function(container, itemsJson) {
-		var items = new DataSet(JSON.parse(itemsJson));
+		var items = new vis.DataSet(JSON.parse(itemsJson));
 		container.timeline._timeline.setItems(items);
-		container.timeline._timeline.fit();
+//		container.timeline._timeline.fit();
 	},
 	
 	revertMove: function(container, itemId, itemJson) {
@@ -267,7 +389,7 @@ window.vcftimeline = {
 		itemData.start = parsedItem.start;
 		itemData.end = parsedItem.end;
 
-		let calculatedLeft = container.timeline._timeline.itemSet.items[itemId].conversion.toScreen(moment(itemData.start));
+		let calculatedLeft = container.timeline._timeline.itemSet.items[itemId].conversion.toScreen(vis.moment(itemData.start));
    		container.timeline._timeline.itemSet.items[itemId].left = calculatedLeft;
 
 		container.timeline._timeline.itemsData.update(itemData);
@@ -295,12 +417,12 @@ window.vcftimeline = {
 			startDate = range.start;
 		}
 
-		var start = moment(startDate);
+		var start = vis.moment(startDate);
 		start.hour(0);
 		start.minutes(0);
 		start.seconds(0);
 
-		var end = moment(startDate);
+		var end = vis.moment(startDate);
 		end.add(zoomDays, 'days');
 		
 		container.timeline._timeline.setWindow({
@@ -362,6 +484,4 @@ window.vcftimeline = {
 		}
 	}
 }
-
-
 
