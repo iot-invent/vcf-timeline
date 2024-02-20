@@ -215,7 +215,7 @@ window.vcftimeline = {
 	
 		var options = {
 	        animation: true,
-	        zoom: true,
+	        zoom: false,
 	    };
 	    
         container.timeline._timeline.focus(id, options);
@@ -404,6 +404,11 @@ window.vcftimeline = {
 		var itemData = container.timeline._timeline.itemSet.items[itemId].data;
 		itemData.content = newContent;
 		container.timeline._timeline.itemsData.update(itemData);
+	},
+	
+	setSelection: function(container, itemIds) {
+		var ids = JSON.parse(itemIds)
+		container.timeline._timeline.setSelection(ids);
 	},
 	
 	setZoomOption: function(container, zoomDays) {

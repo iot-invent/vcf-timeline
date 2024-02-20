@@ -408,6 +408,14 @@ public class Timeline extends Div {
 		}
 	}
 
+	public void setSelection(final List<String> items) {
+		if (getElement().getNode().isAttached() && items != null) {
+
+			getElement().executeJs("vcftimeline.setSelection($0, $1)", this,
+					"[" + items.stream().collect(Collectors.joining(",", "\"", "\"")) + "]");
+		}
+	}
+
 	/**
 	 * Sets snap value. It can be an hour, half an hour or fifteen minutes. By default it is set at fifteeen minutes.
 	 *
