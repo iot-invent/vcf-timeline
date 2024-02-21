@@ -209,16 +209,18 @@ window.vcftimeline = {
         });
     },
     
-    focus (container, id) {
+    focus (container, id, options) {
 		
 		container.timeline._timeline.range.stopRolling();
 	
-		var options = {
-	        animation: true,
-	        zoom: false,
-	    };
+		//var options = {
+	    //    animation: true,
+	    //    zoom: false,
+	    //};
 	    
-        container.timeline._timeline.focus(id, options);
+	    var parsedOptions = JSON.parse(options);
+	    
+        container.timeline._timeline.focus(id, parsedOptions);
         
     },
 	
