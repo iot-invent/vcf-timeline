@@ -35,6 +35,7 @@ import com.vaadin.componentfactory.timeline.event.ItemResizeEvent;
 import com.vaadin.componentfactory.timeline.event.ItemsDragAndDropEvent;
 import com.vaadin.componentfactory.timeline.event.ItemsSelectedEvent;
 import com.vaadin.componentfactory.timeline.model.AxisOrientation;
+import com.vaadin.componentfactory.timeline.model.FocusOptions;
 import com.vaadin.componentfactory.timeline.model.Item;
 import com.vaadin.componentfactory.timeline.model.SnapStep;
 import com.vaadin.componentfactory.timeline.model.TimelineOptions;
@@ -126,8 +127,16 @@ public class Timeline extends Div {
 	}
 
 	public void focus(final String id) {
+		// if (getElement().getNode().isAttached()) {
+		// getElement().executeJs("vcftimeline.focus($0, $1)", this, id);
+		// }
+		focus(id, true, true);
+	}
+
+	public void focus(final String id, final boolean animation, final boolean zoom) {
 		if (getElement().getNode().isAttached()) {
-			getElement().executeJs("vcftimeline.focus($0, $1)", this, id);
+			getElement().executeJs("vcftimeline.focus($0, $1, $2)", this, id,
+					FocusOptions.builder().animation(animation).zoom(zoom).build().toJSON());
 		}
 	}
 
@@ -405,6 +414,14 @@ public class Timeline extends Div {
 		});
 		if (getElement().getNode().isAttached()) {
 			getElement().executeJs("vcftimeline.updateItemContent($0, $1, $2)", this, itemId, newContent);
+		}
+	}
+
+	public void setSelection(final List<String> items) {
+		if (getElement().getNode().isAttached() && items != null) {
+
+			getElement().executeJs("vcftimeline.setSelection($0, $1)", this,
+					"[" + items.stream().collect(Collectors.joining(",", "\"", "\"")) + "]");
 		}
 	}
 

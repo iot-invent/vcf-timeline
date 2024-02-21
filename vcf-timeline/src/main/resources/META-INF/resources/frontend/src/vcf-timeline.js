@@ -209,16 +209,18 @@ window.vcftimeline = {
         });
     },
     
-    focus (container, id) {
+    focus (container, id, options) {
 		
 		container.timeline._timeline.range.stopRolling();
 	
-		var options = {
-	        animation: true,
-	        zoom: true,
-	    };
+		//var options = {
+	    //    animation: true,
+	    //    zoom: false,
+	    //};
 	    
-        container.timeline._timeline.focus(id, options);
+	    var parsedOptions = JSON.parse(options);
+	    
+        container.timeline._timeline.focus(id, parsedOptions);
         
     },
 	
@@ -404,6 +406,11 @@ window.vcftimeline = {
 		var itemData = container.timeline._timeline.itemSet.items[itemId].data;
 		itemData.content = newContent;
 		container.timeline._timeline.itemsData.update(itemData);
+	},
+	
+	setSelection: function(container, itemIds) {
+		var ids = JSON.parse(itemIds)
+		container.timeline._timeline.setSelection(ids);
 	},
 	
 	setZoomOption: function(container, zoomDays) {
