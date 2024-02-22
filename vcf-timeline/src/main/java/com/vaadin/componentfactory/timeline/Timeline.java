@@ -88,6 +88,11 @@ public class Timeline extends Div {
 		return timelineOptions;
 	}
 
+	@ClientCallable
+	private void timelineCteated() {
+		setItems(items);
+	}
+
 	@Override
 	protected void onAttach(final AttachEvent attachEvent) {
 		super.onAttach(attachEvent);

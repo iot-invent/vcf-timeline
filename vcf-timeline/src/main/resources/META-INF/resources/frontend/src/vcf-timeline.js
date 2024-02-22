@@ -150,6 +150,7 @@ window.vcftimeline = {
 			}
 		}
 	  }, 100);
+	  container.$server.timelineCteated();
   	},
 
 	move (container, percentage) {
@@ -370,19 +371,25 @@ window.vcftimeline = {
 	},
 
 	setOptions: function(container, optionsJson) {
-		var options = this._processOptions(container, optionsJson)
-		container.timeline._timeline.setOptions(options);
+		if (container && container.timeline && container.timeline._timeline) {
+			var options = this._processOptions(container, optionsJson)
+			container.timeline._timeline.setOptions(options);
+		}
 	},
 
   	addItem: function(container, newItemJson) {
-		container.timeline._timeline.itemsData.add(JSON.parse(newItemJson));
+		if (container && container.timeline && container.timeline._timeline) {
+			container.timeline._timeline.itemsData.add(JSON.parse(newItemJson));
+		}
 		//container.timeline._timeline.fit();
 	},
 
 	setItems: function(container, itemsJson) {
 		var items = new vis.DataSet(JSON.parse(itemsJson));
-		container.timeline._timeline.setItems(items);
-//		container.timeline._timeline.fit();
+		if (container && container.timeline && container.timeline._timeline) {
+			container.timeline._timeline.setItems(items);
+		}
+		//container.timeline._timeline.fit();
 	},
 	
 	revertMove: function(container, itemId, itemJson) {
@@ -409,8 +416,10 @@ window.vcftimeline = {
 	},
 	
 	setSelection: function(container, itemIds) {
-		var ids = JSON.parse(itemIds)
-		container.timeline._timeline.setSelection(ids);
+		if (container && container.timeline && container.timeline._timeline) {
+			var ids = JSON.parse(itemIds)
+			container.timeline._timeline.setSelection(ids);
+		}
 	},
 	
 	setZoomOption: function(container, zoomDays) {
