@@ -3,7 +3,7 @@
 
     <groupId>io.rtlscloud.vaadin</groupId>
     <artifactId>vcf-timeline-root</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>${revision}${changelist}</version>
     <packaging>pom</packaging>
     <modules>
         <module>vcf-timeline</module>
@@ -13,7 +13,9 @@
     <description>timeline component based on vis-timeline library</description>
 
     <properties>
-		<project.scm.id>github</project.scm.id>
+	<revision>1.0</revision>
+	<changelist>-SNAPSHOT</changelist>
+	<project.scm.id>github</project.scm.id>
         <vaadin.version>14.10.2</vaadin.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
