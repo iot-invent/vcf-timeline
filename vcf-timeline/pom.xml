@@ -121,9 +121,6 @@
 				<version>3.4.1</version>
 				<configuration>
 					<rules>
-						<reactorModuleConvergence>
-							<message>The reactor is not valid</message>
-						</reactorModuleConvergence>
 						<requireReleaseDeps>
 							<message>No Snapshots Allowed!</message>
 						</requireReleaseDeps>
